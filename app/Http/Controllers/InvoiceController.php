@@ -38,10 +38,12 @@ class InvoiceController extends Controller
      */
     public function EntityApproved(invoice $invoice)
     {
-        if ($invoice->status!=StatusEnum::APPROVED || $invoice->status!=StatusEnum::REJECTED)
+        $status_r=StatusEnum::REJECTED;
+        $status_a=StatusEnum::APPROVED;
+        if ($invoice->status!=$status_r->value && $invoice->status!=$status_a->value)
             {
                 $status=StatusEnum::APPROVED;
-                $invoice->status=$status;
+                $invoice->status=$status->value;
                 $invoice->save();
             }
         else
@@ -51,11 +53,12 @@ class InvoiceController extends Controller
     }
     public function EntityRejected(invoice $invoice)
     {
-        if ($invoice->status!=StatusEnum::APPROVED || $invoice->status!=StatusEnum::REJECTED)
-            {
-
+        $status_r=StatusEnum::REJECTED;
+        $status_a=StatusEnum::APPROVED;
+        if ($invoice->status!=$status_r->value && $invoice->status!=$status_a->value)
+            {               
                 $status=StatusEnum::REJECTED;
-                $invoice->status=$status;
+                $invoice->status=$status->value;
                 $invoice->save();
             }
         else
